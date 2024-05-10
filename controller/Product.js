@@ -1,10 +1,6 @@
 const { Product } = require('../model/Product');
-const fs = require("fs")
 
-const dummyData = fs.readFileSync("./data.json",{
-  encoding:'utf8'
-})
-const jsonDummyData = JSON.parse(dummyData)
+
 
 exports.createProduct = async (req, res) => {
   // this product we have to get from API body
@@ -58,9 +54,6 @@ exports.fetchAllProducts = async (req, res) => {
   try {
     const docs = await query.exec();
     res.set('X-Total-Count', totalDocs);
-    if(docs.length<1){
-      return res.status(200).json(jsonDummyData.products)
-    }
     res.status(200).json(docs);
   } catch (err) {
     res.status(400).json(err);
