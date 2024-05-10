@@ -16,6 +16,7 @@ exports.fetchOrdersByUser = async (req, res) => {
   
   exports.createOrder = async (req, res) => {
     const order = new Order(req.body);
+    console.log("order",order)
     // here we have to update stocks;
     
     for(let item of order.items){
@@ -29,7 +30,7 @@ exports.fetchOrdersByUser = async (req, res) => {
       const doc = await order.save();
       const user = await User.findById(order.user)
        // we can use await for this also 
-       sendMail({to:user.email,html:invoiceTemplate(order),subject:'Order Received' })
+      //  sendMail({to:user.email,html:invoiceTemplate(order),subject:'Order Received' })
              
       res.status(201).json(doc);
     } catch (err) {
